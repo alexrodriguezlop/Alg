@@ -1,0 +1,30 @@
+#!/usr/bin/gnuplot   
+
+set terminal png
+
+set autoscale                        # Pone la escala en modo automático
+unset log
+unset label                          # Quita etiquetas anteriores
+set xtic auto                        # set xtics automatically
+set ytic auto                        # set ytics automatically
+
+set xlabel "Tamaño"
+set ylabel "Tiempo (seg)"
+
+set output "O(nLog(n)).png"
+
+set title "Comparacion de algoritmos O(nLog(n))"
+
+plot "Heapsort.dat" title "Heapsort" w lp, "Mergesort.dat" title "Mergesort" w lp , "Quicksort.dat" title "Quicksort" with lines
+
+set output "O(n^2).png"
+
+set title "Comparacion de algoritmos O(n^2)"
+
+plot "Burbuja.dat" title "Burbuja", "Seleccion.dat" title "Seleccion", "Insercion.dat" title "Insercion" with lines
+
+set output "Ordenacion de vectores.png"
+
+set title "Comparacion de algoritmos de ordenacion de vectores"
+
+plot "Burbuja.dat" title "Burbuja", "Seleccion.dat" title "Seleccion", "Insercion.dat" title "Insercion", "Heapsort.dat" title "Heapsort", "Mergesort.dat" title "Mergesort", "Quicksort.dat" title "Quicksort" with lines

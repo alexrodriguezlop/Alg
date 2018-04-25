@@ -1,0 +1,406 @@
+\documentclass[11pt,twoside,a4paper,spanish]{report}
+
+%Paquetes:
+\usepackage[T1]{fontenc}%Sirve para establecer una tipografía.
+\usepackage[latin1]{inputenc}%Sirve para que LATEX reconozca las tildes.
+\usepackage[spanish]{babel}%Traduce texto por defecto como TITLE, AUTHOR, etc..
+
+\usepackage{fancyvrb} %Necesario para poder usar verbatin dentro de otras etiquetas como footnote, añadiendo \VerbatimFootnotes antes
+\usepackage{graphicx} %Permite incluir imágenes
+\usepackage[hidelinks]{hyperref} %Uso de hiperenlaces sin estilo
+\usepackage{colortbl} %Colores en las tablas
+
+%Colores en el texto
+\usepackage{pstricks}
+
+ 
+\usepackage{multirow} % para las tablas
+\usepackage{float} %posicionar tabla
+\usepackage{url} %url
+\usepackage{tocbibind}%Añade la bibliografía al índice
+
+
+
+%Referencias
+
+
+%Margenes:
+\usepackage{vmargin}
+
+\setpapersize{A4}
+\setmargins{2.5cm}       		% margen izquierdo
+{1cm}                       % margen superior(1.5)
+{16.5cm}                    % anchura del texto
+{23.42cm}                   % altura del texto
+{1pt}                       % altura de los encabezados (10)
+{1.5cm}                     % espacio entre el texto y los encabezados(1)
+{1pt}                       % altura del pie de página
+{1.5cm}                       % espacio entre el texto y el pie de página
+
+%Ruta imágenes
+\graphicspath{ {./Datos/} }
+
+
+
+%Código Bonito:
+\usepackage{minted}	%Código
+				\newmintedfile[script]{bash}{
+					linenos,
+					numbersep=5pt,
+					gobble=0,
+					frame=lines,
+					framesep=2mm,
+				}
+				
+				\newmintedfile[main]{cpp}{
+					linenos,
+					numbersep=5pt,
+					gobble=0,
+					frame=lines,
+					framesep=2mm,
+				}
+				
+				\newmintedfile[plot]{gnuplot}{
+					linenos,
+					numbersep=5pt,
+					gobble=0,
+					frame=lines,
+					framesep=2mm,
+				}
+
+\usepackage{color} %Color 
+
+\definecolor{miverde}{rgb}{0,0.6,0}
+\definecolor{migris}{rgb}{0.5,0.5,0.5}
+\definecolor{mimalva}{rgb}{0.58,0,0.82} 	
+
+
+
+%Cabecera y pie de página
+\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\pagestyle{plain}
+\fancyhead[CO,CE]{Cabecera} %C->centro E->Par O->Impar
+\fancyfoot[CO,CE]{-\thepage-}
+
+
+						
+						
+%Título y autor:
+\title{Práctica {\color{miverde} 1} Algorítmica }
+\author{Alejandro Rodr\'iguez L\'opez \\ {\color{migris} alexrodriguezlop@correo.ugr.es}}
+\date{\small{\today}}
+
+%Comienzo
+\begin{document}
+
+		\begin{titlepage}
+
+			\maketitle % Genera el título a partir del author, title y date.
+
+		\end{titlepage}
+
+		\setcounter{chapter}{-1}
+
+		%índice
+		\tableofcontents
+		
+		\newpage
+		
+		%Capítulo
+		\chapter{Entorno y automatización}
+			\section{Hardware}
+			  \subsection{CPU}
+					Datos obtenidos mediante la ejecución de \verb|$| lscpu en la máquina virtual donde han sido realizadas las
+					ejecuciones.
+					\\
+					Todos los ejercicios han sido ejecutados en dicho hardware.
+					
+					\vspace{5mm}
+					
+					Máquina virtual:
+					\\
+					La máquina virtual tiene asignados dos núcleos del procesador.
+					\\
+					Arquitectura: \verb|x86_64|
+					\\
+					modo(s) de operación de las CPUs: \verb|32-bit|, \verb|64-bit|
+					\\
+					Orden de bytes: Little Endian
+					\\
+					CPU(s): 2
+					\\
+					CPU MHz: 2594.004
+					\\
+					Caché L1d: 32K
+					\\
+					Caché L1i: 32K
+					\\
+					Caché L2: 256K
+					\\
+					Caché L3: 6144K
+					
+					\vspace{5mm}
+					
+					Sistema Anfitrión:
+					\\
+					El sistema anfitrión dispone de un microprocesador I7 4720HQ 2.60GHz
+				
+				\subsection{Memoria ram}
+					Máquina virtual:
+					\\
+					Tiene asignados 2GB de memoria RAM
+					
+					\vspace{5mm}
+					
+					Sistema Anfitrión:
+					\\
+					Dispone de 16GB de memoria RAM
+				
+				
+			\section{Software}
+				\subsection{Compilador}
+					\begin{itemize}
+						\item[$$]G++ versión 4.8
+						\item[$$]Opciones de compilado: g++ fichero.cpp –o ejecutable -std=gnu++0x
+					\end{itemize}
+					 
+					
+				\subsection{Sistema operativo}
+					\begin{itemize}
+						\item[$$]Ubuntu 14.04.5 LTS
+					\end{itemize}
+
+
+			\section{Macros y script}
+				Se han diseñado distintos script para automatizar las mediciones de eficiencia, se detallan a continuación.
+				
+				\begin{figure}[H]
+					\script[label="Macro.csh"]{Datos/Script/Macro.csh}
+				\end{figure}
+				Este script realiza la llamada al algoritmo un determinado numero de veces pasandole un parámetro determinado en cada iteración.
+				Tras su finalización se invoca a Macro 2.
+				
+				\begin{figure}[H]
+					\plot[label="Macro2.csh"]{Datos/Script/Macro2.csh}
+				\end{figure}
+				Este script genera la gráfica a partir de los tiempos obtenidos en la ejecución del algoritmo, genera el ajuste y obtiene las constantes.
+				
+				\begin{figure}[H]
+					\plot[label="Comparativa.csh"]{Datos/Script/Comparativa.csh}
+				\end{figure}
+				Este script genera tres comparativas de los argoritmos de ordenación de vectores, una para los de tipo O($N^2$), para los de tipo O(nLOG(n)) y para todos ellos.
+				
+			\newpage	
+			\section{Medición usando chrono}
+			
+				Todas las mediciones se han realizado usando la libreria chrono de STL.
+			
+				\begin{figure}[H]
+					\script[label="main_chrono.cpp"]{Datos/Script/main_chrono.cpp}
+				\end{figure}
+				
+				
+		\chapter{Análisis de eficiencia teórica}
+			\section{Algoritmos de orden O(n^{2})}
+				\Large{Burbuja}
+				\begin{figure}[H]
+						\centering
+						\includegraphics[width=0.7\textwidth]{Teorica/Burbuja}
+				\end{figure}
+				Tras llevar a cabo los cálculos determinamos que el algoritmo Burbuja posee una eficiencia teórica de tipo O(n^{2}).
+			
+			\section{Algoritmos de orden O(n^{3})}
+				\Large{Floyd}
+				\begin{figure}[H]
+						\centering
+						\includegraphics[width=0.7\textwidth]{Teorica/Floyd}
+				\end{figure}
+				Tras llevar a cabo los cálculos determinamos que el algoritmo Floyd posee una eficiencia teórica de tipo O(n^{3}).
+				
+			
+		\chapter{Análisis de eficiencia empírica e híbrida}
+			Se han llevado a cabo determinadas mediciones sobre los distintos algoritmos, a continuación se detallan los 
+			resultados obtenidos de dichas mediciones para cada uno de los algoritmos.
+			
+			
+			\section{Algoritmos de orden { O(n^{2})}}
+			
+				\subsection{Burbuja}
+					\large{Eficiencia empírica}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Burbuja/Grafica}
+						\end{figure}
+						
+					\large{Eficiencia híbrida}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Burbuja/Hibrida}
+						\end{figure}
+						
+						\VerbatimInput{Datos/Burbuja/fit.log}
+					
+				\subsection{Inserción}
+						\large{Eficiencia empírica}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Insercion/Grafica}
+						\end{figure}
+						
+						\large{Eficiencia híbrida}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Insercion/Hibrida}
+						\end{figure}
+						
+						\VerbatimInput{Datos/Insercion/fit.log}
+					
+				\subsection{Selección}
+						\large{Eficiencia empírica}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Seleccion/Grafica}
+						\end{figure}
+						
+						
+						\large{Eficiencia híbrida}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Seleccion/Hibrida}
+						\end{figure}
+						
+						\VerbatimInput{Datos/Seleccion/fit.log}
+					
+					
+			\section{Algoritmos de orden { O(n log n)}}
+			
+				\subsection{Mergesort}
+						\large{Eficiencia empírica}	
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Mergesort/Grafica}
+						\end{figure}
+						
+						\large{Eficiencia híbrida}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Mergesort/Hibrida}
+						\end{figure}
+						
+						\VerbatimInput{Datos/Mergesort/fit.log}
+					
+					
+				\subsection{Quicksort}
+						\large{Eficiencia empírica}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Quicksort/Grafica}
+						\end{figure}
+						
+						\large{Eficiencia híbrida}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Quicksort/Hibrida}
+						\end{figure}
+						
+						\VerbatimInput{Datos/Quicksort/fit.log}
+					
+					
+				\subsection{Heapsort}
+						\large{Eficiencia empírica}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Heapsort/Grafica}
+						\end{figure}
+						
+						\large{Eficiencia híbrida}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Heapsort/Hibrida}
+						\end{figure}
+						
+						\VerbatimInput{Datos/Heapsort/fit.log}
+					
+			
+			\section{Algoritmos de orden { O(n^{3})}}
+			
+				\subsection{Floyd}
+						\large{Eficiencia empírica}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Floyd/Grafica}
+						\end{figure}
+						
+						\large{Eficiencia híbrida}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Floyd/Hibrida}
+						\end{figure}
+						
+						\VerbatimInput{Datos/Floyd/fit.log}
+					
+					
+			\section{Algoritmos de orden { O(2^{n})}}
+			
+				\subsection{Hanoi}
+					\large{Eficiencia empírica}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Hanoi/Grafica}
+						\end{figure}
+						
+					\large{Eficiencia híbrida}
+						\begin{figure}[H]
+							\centering
+							\includegraphics[width=0.7\textwidth]{Hanoi/Hibrida}
+						\end{figure}
+						
+						\VerbatimInput{Datos/Hanoi/fit.log}
+					
+			Como hemos podido observar, los resultados de las pruebas de eficiencia híbridas determinan que los resultados empíricos 
+			se ajustan correctamente con los teóricos mostrando una total semejanza.		
+					
+		\chapter{Comparación de eficiencias}
+			\subsection{Algoritmos de ordenación}
+			
+			%width = 3in, natheight = 400, natwidth = 300
+			
+			
+				\begin{figure}[H]
+					\centering
+					\includegraphics[width=0.9\textwidth]{Comparativas/1}
+					\label{fig:O2}
+				\end{figure}
+				En la imagen \ref{fig:O2} podemos observar la tendencia de los algoritmos O($n^2$) en función a los tamaños de los datos de entrada.
+				Podemos apreciar que Burbuja es mas lento que selección e inserción.
+			
+				\begin{figure}[H]
+					\centering
+					\includegraphics[width=0.9\textwidth]{Comparativas/2}
+					\label{fig:Olog}
+				\end{figure}
+				
+				En la imagen \ref{fig:Olog} podemos observar la tendencia de los algoritmos O(nLOG(n)) en función a los tamaños de los datos de entrada.
+				Podemos apreciar que aunque mantienen una crecida similar Quicksort es el mas eficiente del grupo.
+
+
+				\begin{figure}[H]
+					\centering
+					\includegraphics[width=0.9\textwidth]{Comparativas/3}
+					\label{fig:Ot}
+				\end{figure}
+				
+				En la imagen \ref{fig:Ot} podemos observar la tendencia de los algoritmos en función a los tamaños de los datos de entrada.
+				Podemos apreciar que Quicksort y Mergesort son claramente los mas eficientes y que Burbuja es el menos eficiente.
+				Esta gráfica también deja constancia de las diferencias entre los algoritmos de cada uno de los ordenes de eficiencia.
+				
+
+			
+			
+
+
+				
+		\newpage
+	
+\end{document}
