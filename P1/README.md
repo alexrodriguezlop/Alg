@@ -1,3 +1,3 @@
 # divide and conquer
 
-*[Volver a inicio](../../)*
+*[Volver a inicio](../../../)*
