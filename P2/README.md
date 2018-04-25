@@ -1,2 +1,2 @@
-# Greedy Algorithms
+# Divide and conquer
 *[Volver a inicio](../../../)*
