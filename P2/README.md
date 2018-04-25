@@ -8,4 +8,4 @@
 4. * [Code for vectors without repeated elements](SinRepetidosDyV.cpp)
 
 
-*[Volver a inicio](../../../)*
+*[Go back](../../../)*
